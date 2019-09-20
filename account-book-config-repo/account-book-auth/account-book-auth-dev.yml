@@ -1,1 +1,4 @@
+server:
+  port: 8002
+
 data: this is the dev branch dev-config file of demo

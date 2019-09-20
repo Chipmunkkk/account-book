@@ -1,1 +1,4 @@
+server:
+  port: 8080
+
 data: this is the dev branch dev-config file of uac
