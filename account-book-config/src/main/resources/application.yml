@@ -7,9 +7,10 @@ spring:
     config:
       server:
         git:
-          uri: https://gitee.com/Mustang_/account-book-config.git
+          uri: https://github.com/Chipmunkkk/account-book.git
           username: 1033780702@qq.com
           password: SZB9624995
+          search-paths: account-book-config-repo
       profile: dev
       label: master
       discovery:
