@@ -1,0 +1,15 @@
+server:
+  port: 8000 # 配置我们注册中心的端口
+
+eureka:
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+  instance:
+    hostname: 127.0.0.1 # url路径 我采用的是本地路径
+  client:
+    # 表明是否自身注册到eureka 服务器上
+    registerWithEureka: false
+    # 是否从 eureka 服务器上获得注册信息
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ #eureka 完整配置地址
