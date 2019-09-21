@@ -1,7 +1,7 @@
 package xin.shaozb.accountbook.auth;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  */
 @EnableAuthorizationServer
 @EnableEurekaClient
-@SpringCloudApplication
+@SpringBootApplication
 public class AccountBookAuthApplication {
 
     public static void main(String[] args) {

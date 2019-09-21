@@ -1,6 +1,7 @@
 package xin.shaozb.accountbook.uac;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
@@ -11,7 +12,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @author 1033780702@qq.com
  */
 @EnableEurekaClient
-@SpringCloudApplication
+@SpringBootApplication
 public class AccountBookUacApplication {
 
     public static void main(String[] args) {
