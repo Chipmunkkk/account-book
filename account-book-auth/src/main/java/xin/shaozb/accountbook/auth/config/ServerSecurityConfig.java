@@ -1,6 +1,7 @@
 package xin.shaozb.accountbook.auth.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +9,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import xin.shaozb.accountbook.auth.handler.AuthFailHandler;
+import xin.shaozb.accountbook.auth.handler.AuthSuccessHandler;
 import xin.shaozb.accountbook.common.util.Md5PasswordEncoder;
 
 /**
@@ -19,6 +22,12 @@ import xin.shaozb.accountbook.common.util.Md5PasswordEncoder;
 @Slf4j
 @Configuration
 public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private AuthSuccessHandler successHandler;
+
+    @Autowired
+    private AuthFailHandler failHandler;
 
     /**
      * 配置密码加密器(可自定义)
@@ -32,7 +41,11 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.formLogin()
+                .successHandler(successHandler)
+                .failureHandler(failHandler)
+                .and()
+                .authorizeRequests()
                 .antMatchers("/oauth/token", "/oauth/authorize").permitAll()
                 .anyRequest().authenticated();
     }
