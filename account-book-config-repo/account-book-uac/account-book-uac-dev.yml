@@ -3,6 +3,10 @@ server:
 
 data: this is the dev branch dev-config file of uac
 
+logging:
+  level:
+    xin.shaozb.accountbook.uac.mapper: DEBUG
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/account_book?useSSL=false

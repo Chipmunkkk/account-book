@@ -1,7 +1,10 @@
 package xin.shaozb.accountbook.auth.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import xin.shaozb.accountbook.common.entity.common.Response;
 
 /**
  * Description:
@@ -9,7 +12,10 @@ import org.apache.ibatis.annotations.Select;
  *
  * @author 1033780702@qq.com
  */
-@Mapper
+@FeignClient(name = "account-book-uac")
 public interface UserMapper {
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    Response findUserByName(@RequestParam String name);
 
 }

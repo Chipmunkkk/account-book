@@ -11,5 +11,23 @@
 
     <artifactId>account-book-gateway</artifactId>
 
+    <properties>
+        <module.version>1.0-SNAPSHOT</module.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>xin.shaozb</groupId>
+            <artifactId>account-book-common</artifactId>
+            <version>${module.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+    </dependencies>
 </project>

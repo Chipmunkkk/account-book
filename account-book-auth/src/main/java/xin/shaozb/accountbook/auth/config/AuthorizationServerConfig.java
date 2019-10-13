@@ -32,9 +32,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
@@ -61,7 +58,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(userService)
                 .exceptionTranslator(exceptionTranslator)
                 .tokenStore(redisTokenStore());
     }

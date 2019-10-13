@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import xin.shaozb.accountbook.auth.handler.AuthFailHandler;
 import xin.shaozb.accountbook.auth.handler.AuthSuccessHandler;
+import xin.shaozb.accountbook.auth.service.UserService;
 import xin.shaozb.accountbook.common.util.Md5PasswordEncoder;
 
 /**
@@ -29,9 +31,11 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthFailHandler failHandler;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * 配置密码加密器(可自定义)
-     * todo 随后改为自定义的密码加密器
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -41,21 +45,18 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .successHandler(successHandler)
-                .failureHandler(failHandler)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/oauth/token", "/oauth/authorize").permitAll()
-                .anyRequest().authenticated();
+//        http.authorizeRequests().antMatchers("/**").permitAll();
+//        http.requestMatchers().antMatchers("/**");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder())
-                .withUser("super").password("DE2F15D014D40B93578D255E6221FD60").roles("ADMIN").and()
-                .withUser("super1").password("490EB03D394FD69C1EB0A116983CF3F4").roles("USER");
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/auth/**");
     }
 
     @Bean

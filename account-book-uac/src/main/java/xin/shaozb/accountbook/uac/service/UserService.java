@@ -1,17 +1,16 @@
-package xin.shaozb.accountbook.auth.service;
+package xin.shaozb.accountbook.uac.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import xin.shaozb.accountbook.auth.mapper.UserMapper;
-import xin.shaozb.accountbook.common.entity.common.Response;
 import xin.shaozb.accountbook.common.entity.uac.User;
+import xin.shaozb.accountbook.uac.mapper.UserMapper;
 
 /**
  * Description:
- * Date: 2019/9/21 12:42
+ * Date: 2019/10/13 14:27
  *
  * @author 1033780702@qq.com
  */
@@ -23,15 +22,10 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Response response = userMapper.findUserByName(name);
-        if (response.getCode() == Response.ResponseCode.SUCCESS.getCode()) {
-            User user = response.getData(User.class);
-            if (user == null) {
-                throw new UsernameNotFoundException("用户不存在");
-            }
-            return user;
-        } else {
-            return null;
+        User user = userMapper.findUserByName(name);
+        if (user == null) {
+            throw new UsernameNotFoundException("用户不存在");
         }
+        return user;
     }
 }

@@ -1,25 +1,22 @@
-package xin.shaozb.accountbook.auth;
+package xin.shaozb.accountbook.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 /**
  * Description:
- * Date: 2019/9/20 23:24
+ * Date: 2019/10/13 16:19
  *
  * @author 1033780702@qq.com
  */
-@EnableAuthorizationServer
-@EnableEurekaClient
 @EnableFeignClients
+@EnableEurekaClient
 @SpringBootApplication
-public class AccountBookAuthApplication {
+public class AccountBookGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AccountBookAuthApplication.class, args);
+        SpringApplication.run(AccountBookGatewayApplication.class, args);
     }
 }
