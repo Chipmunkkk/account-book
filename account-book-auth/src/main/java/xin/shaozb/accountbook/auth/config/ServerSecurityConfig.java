@@ -47,6 +47,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests().antMatchers("/**").permitAll();
 //        http.requestMatchers().antMatchers("/**");
+        http.formLogin().successHandler(successHandler).failureHandler(failHandler);
     }
 
     @Override

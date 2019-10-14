@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import xin.shaozb.accountbook.auth.handler.AuthExceptionTranslator;
-import xin.shaozb.accountbook.auth.service.UserService;
 
 /**
  * Description: 配置Oauth2
@@ -37,6 +36,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private AuthClientDetailService clientDetailService;
+
     /**
      * 用来配置客户端详情服务(ClientDetailsService)
      * <p>
@@ -44,12 +46,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("account-book-uac")
-                .secret("8CA76F4EBBD07F3F3BAF5CA6F5941F9E")
-                .scopes("read")
-                .authorizedGrantTypes("password")
-                .redirectUris("http://baidu.com/?code=");
+        clients.withClientDetails(clientDetailService);
     }
 
     /**

@@ -1,7 +1,10 @@
 package xin.shaozb.accountbook.auth.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xin.shaozb.accountbook.auth.entity.AuthClient;
 import xin.shaozb.accountbook.auth.entity.AuthPrincipal;
+import xin.shaozb.accountbook.auth.mapper.AuthMapper;
 
 /**
  * Description:
@@ -12,10 +15,17 @@ import xin.shaozb.accountbook.auth.entity.AuthPrincipal;
 @Service
 public class AuthService {
 
+    @Autowired
+    private AuthMapper authMapper;
+
     public AuthPrincipal getPrincipal(String client) {
         AuthPrincipal authPrincipal = new AuthPrincipal();
         authPrincipal.setName(client);
         return authPrincipal;
+    }
+
+    public AuthClient findClientByName(String client) {
+        return authMapper.findClientByName(client);
     }
 
 }

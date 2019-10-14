@@ -1,6 +1,7 @@
 package xin.shaozb.accountbook.uac.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xin.shaozb.accountbook.common.entity.common.Response;
@@ -20,7 +21,8 @@ public class UacController {
 
     @PostMapping("/login")
     public Response loginByName(String name) {
-        return Response.result(Response.ResponseCode.SUCCESS, userService.loadUserByUsername(name));
+        UserDetails user = userService.loadUserByUsername(name);
+        return Response.result(Response.ResponseCode.SUCCESS, user);
     }
 
 }

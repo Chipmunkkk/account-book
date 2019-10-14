@@ -10,7 +10,7 @@ import xin.shaozb.accountbook.common.entity.common.Response;
  *
  * @author 1033780702@qq.com
  */
-@FeignClient("account-book-user-service")
+@FeignClient("account-book-uac")
 public interface UserServiceApi {
 
     @PostMapping(value = "/login")
