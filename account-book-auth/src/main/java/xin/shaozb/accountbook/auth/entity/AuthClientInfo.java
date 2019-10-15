@@ -1,6 +1,7 @@
 package xin.shaozb.accountbook.auth.entity;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
@@ -16,7 +17,7 @@ import java.util.Set;
  * @author 1033780702@qq.com
  */
 @Data
-public class AuthClient implements ClientDetails {
+public class AuthClientInfo implements ClientDetails {
 
     private static final long serialVersionUID = 4675852801686079611L;
     private String id;
@@ -24,6 +25,9 @@ public class AuthClient implements ClientDetails {
     private String secret;
     private String scope;
     private String grantType;
+    private String redirectUrl = "";
+    private Integer accessTokenValiditySeconds = 60 * 15;
+    private Integer refreshTokenValiditySeconds = 60 * 30;
 
     @Override
     public String getClientId() {
@@ -37,7 +41,7 @@ public class AuthClient implements ClientDetails {
 
     @Override
     public boolean isSecretRequired() {
-        return true;
+        return StringUtils.isNotEmpty(this.secret);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class AuthClient implements ClientDetails {
 
     @Override
     public boolean isScoped() {
-        return true;
+        return StringUtils.isNotEmpty(this.scope);
     }
 
     @Override
@@ -66,7 +70,9 @@ public class AuthClient implements ClientDetails {
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        return null;
+        Set<String> redirectUrl = new HashSet<>();
+        redirectUrl.add(this.redirectUrl);
+        return redirectUrl;
     }
 
     @Override
@@ -76,12 +82,12 @@ public class AuthClient implements ClientDetails {
 
     @Override
     public Integer getAccessTokenValiditySeconds() {
-        return 50000;
+        return this.accessTokenValiditySeconds;
     }
 
     @Override
     public Integer getRefreshTokenValiditySeconds() {
-        return 50000;
+        return this.refreshTokenValiditySeconds;
     }
 
     @Override

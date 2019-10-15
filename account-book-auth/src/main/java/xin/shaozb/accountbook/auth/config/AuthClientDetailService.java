@@ -5,7 +5,7 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.stereotype.Component;
-import xin.shaozb.accountbook.auth.entity.AuthClient;
+import xin.shaozb.accountbook.auth.entity.AuthClientInfo;
 import xin.shaozb.accountbook.auth.service.AuthService;
 
 /**
@@ -22,7 +22,7 @@ public class AuthClientDetailService implements ClientDetailsService {
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        AuthClient client = authService.findClientByName(clientId);
+        AuthClientInfo client = authService.findClientByName(clientId);
         if (client == null) {
             throw new ClientRegistrationException("应用" + clientId + "不存在");
         }

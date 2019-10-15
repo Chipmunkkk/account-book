@@ -2,7 +2,7 @@ package xin.shaozb.accountbook.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xin.shaozb.accountbook.auth.entity.AuthClient;
+import xin.shaozb.accountbook.auth.entity.AuthClientInfo;
 import xin.shaozb.accountbook.auth.entity.AuthPrincipal;
 import xin.shaozb.accountbook.auth.mapper.AuthMapper;
 
@@ -24,7 +24,7 @@ public class AuthService {
         return authPrincipal;
     }
 
-    public AuthClient findClientByName(String client) {
+    public AuthClientInfo findClientByName(String client) {
         return authMapper.findClientByName(client);
     }
 
