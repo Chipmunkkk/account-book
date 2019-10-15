@@ -22,8 +22,7 @@
         <module>account-book-config</module>
         <module>account-book-core</module>
         <module>account-book-gateway</module>
-        <module>account-book-zipkin</module>
-        <module>account-book-elk</module>
+        <module>account-book-monitor</module>
         <module>account-book-common</module>
         <module>account-book-uac</module>
     </modules>
