@@ -8,6 +8,16 @@ spring:
       discovery:
         service-id: account-book-config
         enabled: true
+  sleuth:
+    feign:
+      enabled: true
+    sampler:
+      probability: 1.0
+    trace-id128: true
+ribbon:
+  eager-load:
+    enabled: true
+    clients: account-book-uac
 
 eureka:
   instance:
