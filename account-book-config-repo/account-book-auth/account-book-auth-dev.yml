@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://cdb-4g1maflw.bj.tencentcdb.com:10210/account_book?useSSL=false
+    url: jdbc:mysql://cdb-4g1maflw.bj.tencentcdb.com:10210/account_book?useSSL=false&autoReconnect=true
     username: root
     password: SZB9624995
     driverClassName: com.mysql.jdbc.Driver
