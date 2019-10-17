@@ -4,13 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import xin.shaozb.accountbook.common.entity.common.Response;
 import xin.shaozb.accountbook.common.entity.uac.User;
-import xin.shaozb.accountbook.uac.service.AuthService;
 import xin.shaozb.accountbook.uac.service.UserService;
 
 /**
@@ -26,9 +26,6 @@ public class UacController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private AuthService authService;
-
     @PostMapping("/register")
     public Response register(@RequestBody JSONObject params) {
         String account = params.getString("account");
@@ -43,8 +40,10 @@ public class UacController {
     }
 
     @PostMapping("/login")
-    public Response login(String account, String password) {
-        JSONObject result = authService.auth(account, password);
+    public Response login(@RequestBody JSONObject params) {
+        String account = params.getString("account");
+        String password = params.getString("password");
+        JSONObject result = userService.auth(account, password);
         if (result.getBooleanValue("auth")) {
             JSONObject tokenInfo = result.getJSONObject("tokenInfo");
             String accessToken = tokenInfo.getString("access_token");
@@ -63,8 +62,12 @@ public class UacController {
      */
     @GetMapping("/check-user")
     public Response loginByName(String name) {
-        UserDetails user = userService.loadUserByUsername(name);
-        return Response.result(Response.ResponseCode.SUCCESS, user);
+        try {
+            UserDetails user = userService.loadUserByUsername(name);
+            return Response.result(Response.ResponseCode.SUCCESS, user);
+        } catch (UsernameNotFoundException e) {
+            return Response.result(Response.ResponseCode.BAD_REQUEST, "用户名或密码错误");
+        }
     }
 
 }

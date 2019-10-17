@@ -2,6 +2,7 @@ package xin.shaozb.accountbook.uac.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -29,14 +30,17 @@ public class UacAuthenticationEntryPoint implements AuthenticationEntryPoint {
         httpServletResponse.setContentType("application/json");
         if (!(httpServletRequest instanceof SecurityContextHolderAwareRequestWrapper)) {
             Response response;
-            if (e.getCause() instanceof InvalidTokenException) {
-                response = Response.result(Response.ResponseCode.AUTH_ERROR, "token已失效,请重新登录");
+            Throwable cause = e.getCause();
+            if (cause instanceof InvalidTokenException) {
+                response = Response.result(Response.ResponseCode.INVALID_TOKEN, "token已失效,请重新登录");
+            } else if (cause instanceof OAuth2AccessDeniedException) {
+                response = Response.result(Response.ResponseCode.INVALID_TOKEN, "该token无效,请重新获取");
             } else {
-                response = Response.result(Response.ResponseCode.AUTH_ERROR);
+                response = Response.result(Response.ResponseCode.UNAUTHORIZED);
             }
             httpServletResponse.getWriter().print(response);
         } else {
-            httpServletResponse.getWriter().print("{\"error\":\"没有权限!!!!!\"}");
+            httpServletResponse.getWriter().print(Response.result(Response.ResponseCode.UNAUTHORIZED));
         }
 
     }

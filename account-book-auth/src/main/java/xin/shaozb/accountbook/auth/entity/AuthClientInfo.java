@@ -6,9 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Description:
@@ -20,11 +21,12 @@ import java.util.Set;
 public class AuthClientInfo implements ClientDetails {
 
     private static final long serialVersionUID = 4675852801686079611L;
-    private String id;
-    private String client;
-    private String secret;
-    private String scope;
-    private String grantType;
+    private String id = "";
+    private String client = "";
+    private String secret = "";
+    private String scope = "";
+    private String grantType = "";
+    private String resources = "";
     private String redirectUrl = "";
     private Integer accessTokenValiditySeconds = 60 * 15;
     private Integer refreshTokenValiditySeconds = 60 * 30;
@@ -36,7 +38,7 @@ public class AuthClientInfo implements ClientDetails {
 
     @Override
     public Set<String> getResourceIds() {
-        return null;
+        return Stream.of(resources.split("[|]")).collect(Collectors.toSet());
     }
 
     @Override
@@ -56,23 +58,17 @@ public class AuthClientInfo implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
-        Set<String> scopes = new HashSet<>();
-        scopes.add(scope);
-        return scopes;
+        return Stream.of(scope.split("[|]")).collect(Collectors.toSet());
     }
 
     @Override
     public Set<String> getAuthorizedGrantTypes() {
-        Set<String> types = new HashSet<>();
-        types.add(grantType);
-        return types;
+        return Stream.of(grantType.split("[|]")).collect(Collectors.toSet());
     }
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        Set<String> redirectUrl = new HashSet<>();
-        redirectUrl.add(this.redirectUrl);
-        return redirectUrl;
+        return Stream.of(redirectUrl.split("[|]")).collect(Collectors.toSet());
     }
 
     @Override

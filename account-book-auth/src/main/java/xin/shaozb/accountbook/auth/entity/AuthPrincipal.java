@@ -18,7 +18,8 @@ import java.util.Collection;
 public class AuthPrincipal implements Authentication {
 
     private static final long serialVersionUID = -9017598123546929161L;
-    private String name;
+    private String name = "";
+    private String grantType = "";
 
     public AuthPrincipal(String name) {
         this.name = name;

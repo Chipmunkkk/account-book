@@ -15,6 +15,8 @@ spring:
       probability: 1.0
     trace-id128: true
 ribbon:
+  eureka:
+    enabled: true
   eager-load:
     enabled: true
     clients: account-book-uac

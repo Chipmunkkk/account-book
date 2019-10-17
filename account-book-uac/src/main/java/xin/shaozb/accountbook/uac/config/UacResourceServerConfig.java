@@ -1,6 +1,7 @@
 package xin.shaozb.accountbook.uac.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -25,17 +26,19 @@ public class UacResourceServerConfig extends ResourceServerConfigurerAdapter {
     private UacAccessDeniedHandler accessDeniedHandler;
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
+    @Value("${spring.application.name}")
+    private String appName;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/login","/register","/check-user").permitAll() // 除了首页和登录不做认证,其余的请求全部需要认证才能访问
+                .antMatchers("/", "/login", "/register", "/check-user").permitAll() // 除了首页和登录不做认证,其余的请求全部需要认证才能访问
                 .anyRequest().authenticated();
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.authenticationEntryPoint(authenticationEntryPoint)
+        resources.resourceId(appName).authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler)
                 .tokenStore(redisTokenStore());
     }

@@ -18,14 +18,22 @@ public class AuthService {
     @Autowired
     private AuthMapper authMapper;
 
-    public AuthPrincipal getPrincipal(String client) {
+    public AuthPrincipal getPrincipal(String appId) throws IllegalArgumentException {
         AuthPrincipal authPrincipal = new AuthPrincipal();
-        authPrincipal.setName(client);
+        AuthClientInfo clientInfo = findClientByAppId(appId);
+        if (clientInfo == null) {
+            throw new IllegalArgumentException("错误的appId,请检查后重试");
+        }
+        authPrincipal.setName(clientInfo.getClient());
         return authPrincipal;
     }
 
     public AuthClientInfo findClientByName(String client) {
         return authMapper.findClientByName(client);
+    }
+
+    public AuthClientInfo findClientByAppId(String appId) {
+        return authMapper.findClientByAppId(appId);
     }
 
 }

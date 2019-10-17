@@ -23,4 +23,7 @@ public interface AuthMapper {
     })
     @Select("SELECT * FROM t_auth_client WHERE client = #{client} LIMIT 1")
     AuthClientInfo findClientByName(String client);
+
+    @Select("SELECT * FROM t_auth_client WHERE id = #{id} LIMIT 1")
+    AuthClientInfo findClientByAppId(String appId);
 }

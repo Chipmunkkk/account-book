@@ -19,6 +19,6 @@ import xin.shaozb.accountbook.common.entity.common.Response;
 public class AuthExceptionTranslator implements WebResponseExceptionTranslator {
     @Override
     public ResponseEntity translate(Exception e) {
-        return ResponseEntity.ok(Response.result(Response.ResponseCode.AUTH_ERROR));
+        return ResponseEntity.ok(Response.result(Response.ResponseCode.INVALID_TOKEN));
     }
 }

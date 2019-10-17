@@ -90,8 +90,8 @@ public class Response extends JSONObject {
     public enum ResponseCode {
         SUCCESS(200, "操作成功"),
         BAD_REQUEST(400, "请求参数错误"),
-        AUTH_ERROR(4001, "token获取失败"),
         UNAUTHORIZED(401, "对不起,请先登录再进行操作"),
+        INVALID_TOKEN(4002, "token无效"),
         FORBIDDEN(403, "没有该操作所需权限"),
         METHOD_NOT_ALLOWED(405, "请求方法不支持"),
         FAILED(500, "操作失败"),
