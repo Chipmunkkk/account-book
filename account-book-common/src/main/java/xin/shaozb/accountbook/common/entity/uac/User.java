@@ -3,7 +3,9 @@ package xin.shaozb.accountbook.common.entity.uac;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import xin.shaozb.accountbook.common.util.Md5PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -17,8 +19,21 @@ public class User implements UserDetails {
 
     private static final long serialVersionUID = 8118548262764970946L;
     private String id;
-    private String name;
-    private String password;
+    private String name = "";
+    private String account = "";
+    private String password = "";
+    private short active = 0;
+    private short lock = 0;
+    private LocalDateTime createTime = LocalDateTime.now();
+
+    public User() {
+
+    }
+
+    public User(String account, String password) {
+        this.account = account;
+        this.password = Md5PasswordEncoder.encrypt(password);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,7 +47,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.name;
+        return this.account;
     }
 
     @Override

@@ -7,7 +7,7 @@ spring:
       label: master
       discovery:
         service-id: account-book-config
-        enabled: true
+        enabled: false
 
 eureka:
   instance:

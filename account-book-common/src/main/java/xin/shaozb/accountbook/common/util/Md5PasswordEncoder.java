@@ -12,6 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 public class Md5PasswordEncoder implements PasswordEncoder {
 
+    public static String encrypt(String text) {
+        return new Md5PasswordEncoder().encode(text);
+    }
+
     /**
      * 对传入的密码进行自定义加密
      */

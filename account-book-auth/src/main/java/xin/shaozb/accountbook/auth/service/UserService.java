@@ -23,7 +23,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Response response = userMapper.findUserByName(name);
+        Response response = userMapper.checkUser(name);
         if (response.getCode() == Response.ResponseCode.SUCCESS.getCode()) {
             User user = response.getData(User.class);
             if (user == null) {

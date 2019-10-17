@@ -1,6 +1,7 @@
 package xin.shaozb.accountbook.auth.endpoint;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -32,7 +33,11 @@ public class AuthTokenEndPoints {
 
     @PostMapping("/auth/token")
     public Response token(@RequestParam Map<String, String> params) throws HttpRequestMethodNotSupportedException {
-        AuthPrincipal principal = authService.getPrincipal(params.get("client"));
+        String client = params.get("client");
+        if (StringUtils.isEmpty(client)) {
+            return Response.result(Response.ResponseCode.BAD_REQUEST, "client不能为空");
+        }
+        AuthPrincipal principal = authService.getPrincipal(client);
         ResponseEntity<OAuth2AccessToken> accessToken = tokenEndpoint.postAccessToken(principal, params);
         return Response.result(Response.ResponseCode.SUCCESS, accessToken.getBody());
     }

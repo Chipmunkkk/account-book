@@ -15,7 +15,7 @@ import xin.shaozb.accountbook.common.entity.common.Response;
 @FeignClient(name = "account-book-uac")
 public interface UserMapper {
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    Response findUserByName(@RequestParam String name);
+    @RequestMapping(value = "/check-user", method = RequestMethod.GET)
+    Response checkUser(@RequestParam String name);
 
 }

@@ -29,7 +29,7 @@ public class UacResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/login").permitAll() // 除了首页和登录不做认证,其余的请求全部需要认证才能访问
+                .antMatchers("/", "/login","/register","/check-user").permitAll() // 除了首页和登录不做认证,其余的请求全部需要认证才能访问
                 .anyRequest().authenticated();
     }
 

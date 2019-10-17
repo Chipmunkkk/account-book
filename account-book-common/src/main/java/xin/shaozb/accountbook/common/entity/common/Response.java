@@ -28,6 +28,7 @@ public class Response extends JSONObject {
 
     private Response(ResponseCode code, String msg) {
         setCode(code);
+        setMsg(msg);
     }
 
     private Response(ResponseCode code, Object data) {
@@ -61,7 +62,7 @@ public class Response extends JSONObject {
         return getIntValue(CODE);
     }
 
-    private void setCode(ResponseCode code) {
+    public void setCode(ResponseCode code) {
         put(CODE, code.getCode());
         put(MSG, code.getMsg());
     }
@@ -70,7 +71,7 @@ public class Response extends JSONObject {
         return getString(MSG);
     }
 
-    private void setMsg(String msg) {
+    public void setMsg(String msg) {
         put(MSG, msg);
     }
 
@@ -78,7 +79,7 @@ public class Response extends JSONObject {
         return get(DATA);
     }
 
-    private void setData(Object data) {
+    public void setData(Object data) {
         put(DATA, data);
     }
 

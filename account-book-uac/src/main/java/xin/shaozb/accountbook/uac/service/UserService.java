@@ -1,5 +1,6 @@
 package xin.shaozb.accountbook.uac.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,10 +23,19 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userMapper.findUserByName(name);
+        User user = userMapper.findUserByAccount(name);
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
         return user;
+    }
+
+    public User checkUserByAccount(String account) {
+        return userMapper.findUserByAccount(account);
+    }
+
+    public void register(User user) {
+        user.setName(RandomStringUtils.randomAlphabetic(10));
+        userMapper.insert(user);
     }
 }
