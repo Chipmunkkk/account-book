@@ -30,7 +30,7 @@
         <springboot.version>2.1.8.RELEASE</springboot.version>
         <springcloud.version>Greenwich.SR2</springcloud.version>
         <mysqlConnector.version>5.1.48</mysqlConnector.version>
-        <mybatis.version>3.5.2</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <mybatisSpring.version>2.0.2</mybatisSpring.version>
         <mybatisSpringboot.version>2.1.0</mybatisSpringboot.version>
         <fastJson.version>1.2.61</fastJson.version>
