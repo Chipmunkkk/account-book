@@ -27,7 +27,7 @@
         <module>account-book-uac</module>
     </modules>
     <properties>
-        <springboot.version>2.1.8.RELEASE</springboot.version>
+        <springboot.version>2.5.12</springboot.version>
         <springcloud.version>Greenwich.SR2</springcloud.version>
         <mysqlConnector.version>5.1.48</mysqlConnector.version>
         <mybatis.version>3.5.2</mybatis.version>
